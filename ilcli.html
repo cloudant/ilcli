@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ilcli package &#8212; Auditree Framework 0.3.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="ilcli" href="modules.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="ilcli"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Auditree Framework 0.3.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">ilcli</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ilcli package</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ilcli-package">
+<h1>ilcli package<a class="headerlink" href="#ilcli-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-ilcli.actions">
+<span id="ilcli-actions-module"></span><h2>ilcli.actions module<a class="headerlink" href="#module-ilcli.actions" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ilcli.actions.DocAction">
+<em class="property">class </em><code class="sig-prename descclassname">ilcli.actions.</code><code class="sig-name descname">DocAction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">option_strings</span></em>, <em class="sig-param"><span class="n">dest</span></em>, <em class="sig-param"><span class="n">nargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">const</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">default</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">choices</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">required</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">help</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">metavar</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/actions.html#DocAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.actions.DocAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.Action</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="ilcli.actions.ServeRestAction">
+<em class="property">class </em><code class="sig-prename descclassname">ilcli.actions.</code><code class="sig-name descname">ServeRestAction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">option_strings</span></em>, <em class="sig-param"><span class="n">dest</span></em>, <em class="sig-param"><span class="n">nargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">const</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">default</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">choices</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">required</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">help</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">metavar</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/actions.html#ServeRestAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.actions.ServeRestAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.Action</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ilcli.args">
+<span id="ilcli-args-module"></span><h2>ilcli.args module<a class="headerlink" href="#module-ilcli.args" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="ilcli.args.kv_args_to_dict">
+<code class="sig-prename descclassname">ilcli.args.</code><code class="sig-name descname">kv_args_to_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arg_list</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/args.html#kv_args_to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.args.kv_args_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a list of key-value args with the form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">key</span> <span class="n">value</span>
+</pre></div>
+</div>
+<p>into a dictionary. In case of parsing failure, <code class="docutils literal notranslate"><span class="pre">cmd.parser.error</span></code>
+will be called, making the program existing with error status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arg_list</strong> – the list of arguments (typically the parameter of
+<code class="docutils literal notranslate"><span class="pre">_validate_extra_arguments()</span></code>).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ilcli.command">
+<span id="ilcli-command-module"></span><h2>ilcli.command module<a class="headerlink" href="#module-ilcli.command" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ilcli.command.Command">
+<em class="property">class </em><code class="sig-prename descclassname">ilcli.command.</code><code class="sig-name descname">Command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">out</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">err</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/command.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.command.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class defining default behaviour for commands. Create a child
+class in order to create a cli.</p>
+<dl class="py method">
+<dt id="ilcli.command.Command.add_argument">
+<code class="sig-name descname">add_argument</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/command.html#Command.add_argument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.command.Command.add_argument" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Add an argument to the internal parser. It accepts the same syntax as</dt><dd><p><code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser.add_argument()</span></code>.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – arguments to pass to <code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code></p></li>
+<li><p><strong>kwargs</strong> – key-value arguments to pass to
+<code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ilcli.command.Command.err">
+<code class="sig-name descname">err</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/command.html#Command.err"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.command.Command.err" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a message into error output (by default, to <code class="docutils literal notranslate"><span class="pre">sys.stderr</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">err</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+ <span class="s1">&#39;hello</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">err</span><span class="p">(</span><span class="s1">&#39;hello </span><span class="si">%s</span><span class="s1">!&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">)</span>
+ <span class="s1">&#39;hello world!</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">err</span><span class="p">()</span>
+<span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Params args</dt>
+<dd class="field-odd"><p>list of parameters where first element is the
+message and the rest optional arguments will be applied to the
+first argument as string template arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ilcli.command.Command.ignore_arguments">
+<code class="sig-name descname">ignore_arguments</code><em class="property"> = []</em><a class="headerlink" href="#ilcli.command.Command.ignore_arguments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ilcli.command.Command.inherit_arguments">
+<code class="sig-name descname">inherit_arguments</code><em class="property"> = True</em><a class="headerlink" href="#ilcli.command.Command.inherit_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>inherit arguments from parent commands</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ilcli.command.Command.init_arguments">
+<code class="sig-name descname">init_arguments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/command.html#Command.init_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.command.Command.init_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialise internal parser with the arguments for this command.</p>
+<p>This is the default implementation. Children classes must use
+_init_arguments().</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ilcli.command.Command.name">
+<code class="sig-name descname">name</code><em class="property"> = None</em><a class="headerlink" href="#ilcli.command.Command.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>the name of the command (if None, class name by default)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ilcli.command.Command.out">
+<code class="sig-name descname">out</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/command.html#Command.out"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.command.Command.out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a message into the output (by default, <code class="docutils literal notranslate"><span class="pre">sys.stdout</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+<span class="s1">&#39;hello</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;hello </span><span class="si">%s</span><span class="s1">!&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">)</span>
+<span class="s1">&#39;hello world!</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">()</span>
+<span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Params args</dt>
+<dd class="field-odd"><p>list of parameters where first element is the
+message and the rest optional arguments will be applied to the
+first argument as string template arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ilcli.command.Command.parser_args">
+<code class="sig-name descname">parser_args</code><em class="property"> = {}</em><a class="headerlink" href="#ilcli.command.Command.parser_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>additional arguments to pass to the ArgumentParser and all sub-parsers</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ilcli.command.Command.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/command.html#Command.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.command.Command.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the command.</p>
+<p>This is the default implementation. Children classes must use
+<code class="docutils literal notranslate"><span class="pre">_run()</span></code> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – list of arguments. Default <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ilcli.command.Command.subcommands">
+<code class="sig-name descname">subcommands</code><em class="property"> = []</em><a class="headerlink" href="#ilcli.command.Command.subcommands" title="Permalink to this definition">¶</a></dt>
+<dd><p>the list classes of subcommands</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-ilcli">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ilcli" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ilcli.Command">
+<em class="property">class </em><code class="sig-prename descclassname">ilcli.</code><code class="sig-name descname">Command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">out</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">err</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/command.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class defining default behaviour for commands. Create a child
+class in order to create a cli.</p>
+<dl class="py method">
+<dt id="ilcli.Command.add_argument">
+<code class="sig-name descname">add_argument</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/command.html#Command.add_argument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.Command.add_argument" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Add an argument to the internal parser. It accepts the same syntax as</dt><dd><p><code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser.add_argument()</span></code>.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – arguments to pass to <code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code></p></li>
+<li><p><strong>kwargs</strong> – key-value arguments to pass to
+<code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ilcli.Command.err">
+<code class="sig-name descname">err</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/command.html#Command.err"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.Command.err" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a message into error output (by default, to <code class="docutils literal notranslate"><span class="pre">sys.stderr</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">err</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+ <span class="s1">&#39;hello</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">err</span><span class="p">(</span><span class="s1">&#39;hello </span><span class="si">%s</span><span class="s1">!&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">)</span>
+ <span class="s1">&#39;hello world!</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">err</span><span class="p">()</span>
+<span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Params args</dt>
+<dd class="field-odd"><p>list of parameters where first element is the
+message and the rest optional arguments will be applied to the
+first argument as string template arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ilcli.Command.ignore_arguments">
+<code class="sig-name descname">ignore_arguments</code><em class="property"> = []</em><a class="headerlink" href="#ilcli.Command.ignore_arguments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ilcli.Command.inherit_arguments">
+<code class="sig-name descname">inherit_arguments</code><em class="property"> = True</em><a class="headerlink" href="#ilcli.Command.inherit_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>inherit arguments from parent commands</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ilcli.Command.init_arguments">
+<code class="sig-name descname">init_arguments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/command.html#Command.init_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.Command.init_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialise internal parser with the arguments for this command.</p>
+<p>This is the default implementation. Children classes must use
+_init_arguments().</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ilcli.Command.name">
+<code class="sig-name descname">name</code><em class="property"> = None</em><a class="headerlink" href="#ilcli.Command.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>the name of the command (if None, class name by default)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ilcli.Command.out">
+<code class="sig-name descname">out</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/command.html#Command.out"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.Command.out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a message into the output (by default, <code class="docutils literal notranslate"><span class="pre">sys.stdout</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+<span class="s1">&#39;hello</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;hello </span><span class="si">%s</span><span class="s1">!&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">)</span>
+<span class="s1">&#39;hello world!</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">()</span>
+<span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Params args</dt>
+<dd class="field-odd"><p>list of parameters where first element is the
+message and the rest optional arguments will be applied to the
+first argument as string template arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ilcli.Command.parser_args">
+<code class="sig-name descname">parser_args</code><em class="property"> = {}</em><a class="headerlink" href="#ilcli.Command.parser_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>additional arguments to pass to the ArgumentParser and all sub-parsers</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ilcli.Command.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ilcli/command.html#Command.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ilcli.Command.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the command.</p>
+<p>This is the default implementation. Children classes must use
+<code class="docutils literal notranslate"><span class="pre">_run()</span></code> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – list of arguments. Default <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ilcli.Command.subcommands">
+<code class="sig-name descname">subcommands</code><em class="property"> = []</em><a class="headerlink" href="#ilcli.Command.subcommands" title="Permalink to this definition">¶</a></dt>
+<dd><p>the list classes of subcommands</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ilcli package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-ilcli.actions">ilcli.actions module</a></li>
+<li><a class="reference internal" href="#module-ilcli.args">ilcli.args module</a></li>
+<li><a class="reference internal" href="#module-ilcli.command">ilcli.command module</a></li>
+<li><a class="reference internal" href="#module-ilcli">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="previous chapter">ilcli</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ilcli.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="ilcli"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Auditree Framework 0.3.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ilcli</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ilcli package</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, IBM.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+  </body>
+</html>

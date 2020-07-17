@@ -1,0 +1,801 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Start &#8212; Auditree Framework 0.3.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Coding Standards" href="coding-standards.html" />
+    <link rel="prev" title="ilcli’s documentation" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="coding-standards.html" title="Coding Standards"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="ilcli’s documentation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Auditree Framework 0.3.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Quick Start</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="quick-start">
+<span id="id1"></span><h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">ilcli</span></code> is a Python library based on ArgumentParser that provides
+the following features:</p>
+<ul class="simple">
+<li><p><strong>Subcommand</strong> creation support so you can build a complex,
+well-structured, and standard CLI.</p></li>
+<li><p>Support for including <strong>documentation</strong> (man pages, web links, etc.)
+so users can quickly open different doc directly from the your tool.</p></li>
+<li><p><strong>REST API</strong> automatic conversion: start serving your CLI as a REST
+API so it can be executed remotely.</p></li>
+<li><p><strong>Multi-project</strong> CLI: build a general CLI whose subcommands will be
+pulled from different projects so you can unify tools.</p></li>
+</ul>
+<p>The most important bit of <code class="docutils literal notranslate"><span class="pre">ilcli</span></code> is the <a class="reference internal" href="ilcli.html#ilcli.Command" title="ilcli.Command"><code class="xref py py-class docutils literal notranslate"><span class="pre">Command</span></code></a>
+class. All commands you define should be children of this class.</p>
+<div class="section" id="the-minimal-example">
+<h2>The minimal example<a class="headerlink" href="#the-minimal-example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8; mode:python -*-</span>
+
+<span class="kn">import</span> <span class="nn">ilcli</span>
+
+
+<span class="k">class</span> <span class="nc">mycmd</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;Hello World!&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+
+<span class="n">exit</span><span class="p">(</span><span class="n">mycmd</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>This creates a command without options (just <code class="docutils literal notranslate"><span class="pre">-h</span></code>):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/minimal.py
+Hello World!
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/minimal.py -h
+usage: mycmd [-h]
+
+optional arguments:
+  -h, --help  show this help message and exit
+</pre></div>
+</div>
+<p>Note that the name of the class is taken as program name. You can
+tweak this by setting the class attribute <code class="docutils literal notranslate"><span class="pre">name</span></code> to whatever value
+you need.</p>
+</div>
+<div class="section" id="arguments-and-options">
+<h2>Arguments and options<a class="headerlink" href="#arguments-and-options" title="Permalink to this headline">¶</a></h2>
+<p>Arguments and options should be added by overriding
+<code class="docutils literal notranslate"><span class="pre">_init_arguments()</span></code> method. In this method, you can use
+<code class="docutils literal notranslate"><span class="pre">self.add_argument()</span></code> method for adding arguments in <strong>exactly</strong> the
+same way as you would do with <code class="xref py py-func docutils literal notranslate"><span class="pre">ArgumentParser.add_argument()</span></code>
+method sinc it accepts the same parameters.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8; mode:python -*-</span>
+
+<span class="kn">import</span> <span class="nn">ilcli</span>
+
+
+<span class="k">class</span> <span class="nc">mycmd</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_init_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;your message&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s1">&#39;-u&#39;</span><span class="p">,</span> <span class="s1">&#39;--upper&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;message in upper case&#39;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">message</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">upper</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+
+<span class="n">cmd</span> <span class="o">=</span> <span class="n">mycmd</span><span class="p">()</span>
+<span class="n">cmd</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>  <span class="c1"># sys.argv by default</span>
+<span class="n">cmd</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;me too&#39;</span><span class="p">])</span>
+<span class="n">cmd</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;me too&#39;</span><span class="p">,</span> <span class="s1">&#39;-u&#39;</span><span class="p">])</span>
+<span class="n">cmd</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;--upper&#39;</span><span class="p">,</span> <span class="s1">&#39;me too!!&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Now our command has a positional argument and one option. If not
+provided, it will fail:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/args_opts.py
+usage: mycmd [-h] [-u] message
+mycmd: error: the following arguments are required: message
+</pre></div>
+</div>
+<p>Note that the arguments and options can be provided as part of the
+<code class="docutils literal notranslate"><span class="pre">run()</span></code> method:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/args_opts.py &quot;I like command line interfaces!&quot;
+I like command line interfaces!
+me too
+ME TOO
+ME TOO!!
+</pre></div>
+</div>
+<div class="section" id="validate-arguments">
+<h3>Validate arguments<a class="headerlink" href="#validate-arguments" title="Permalink to this headline">¶</a></h3>
+<p>Although <code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentParser</span></code> provides some mechanisms for checking
+the parameters (such as <cite>type</cite>, <cite>choices</cite>, etc.), sometimes is useful
+to perform extra validation on the arguments which are application
+specific. For that, you can use <code class="docutils literal notranslate"><span class="pre">_validate_arguments()</span></code> method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8; mode:python -*-</span>
+
+<span class="kn">import</span> <span class="nn">ilcli</span>
+
+
+<span class="k">class</span> <span class="nc">mycmd</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_init_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;your message&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s1">&#39;-u&#39;</span><span class="p">,</span> <span class="s1">&#39;--upper&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;message in upper case&#39;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_validate_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s1">&#39;ilcli&#39;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">err</span><span class="p">(</span><span class="s2">&quot;Please do not take ilcli&#39;s name in vain&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="s1">&#39;help&#39;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;You say help? Sure!&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">message</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">upper</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+
+<span class="n">exit</span><span class="p">(</span><span class="n">mycmd</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/args_opts_validation.py -u &#39;Hello!&#39;
+HELLO!
+</pre></div>
+</div>
+<p>Note that any extra argument will be treated as an error (the default
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentParser</span></code> behaviour) which will make the program fail:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/args_opts_validation.py -u &#39;Hello!&#39; --something more
+usage: mycmd [-h] [-u] message
+mycmd: error: unrecognized arguments: --something more
+</pre></div>
+</div>
+<p>It is worth to mention that <code class="docutils literal notranslate"><span class="pre">self._run()</span></code> will not be executed if
+<code class="docutils literal notranslate"><span class="pre">self._validate_arguments()</span></code> returns something, so we can make sure
+that once <code class="docutils literal notranslate"><span class="pre">self._run()</span></code> is executed, the arguments are validated
+at our semantics level:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/args_opts_validation.py &#39;help me&#39;
+You say help? Sure!
+usage: mycmd [-h] [-u] message
+
+positional arguments:
+  message      your message
+
+optional arguments:
+  -h, --help   show this help message and exit
+  -u, --upper  message in upper case
+help me
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/args_opts_validation.py &#39;ilcli is cool!&#39;
+Please do not take ilcli&#39;s name in vain
+</pre></div>
+</div>
+<p>In certain cases, you might want to allow the user to provide multiple
+arguments at the command line interface that actually cannot be
+specified for multiple reasons. For example, too many possible
+argument combinations or your application needs to get values to be
+replaced in a template:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8; mode:python -*-</span>
+
+<span class="kn">import</span> <span class="nn">ilcli</span>
+
+
+<span class="k">class</span> <span class="nc">mycmd</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+
+    <span class="n">extra_args</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_init_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;your message&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_validate_extra_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kv</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kv</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+
+<span class="n">exit</span><span class="p">(</span><span class="n">mycmd</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/args_extra_opts_validation.py &#39;{name} is cool!&#39; name=ilcli
+ilcli is cool!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="subcommands">
+<h2>Subcommands<a class="headerlink" href="#subcommands" title="Permalink to this headline">¶</a></h2>
+<p>One interesting feature that <a class="reference internal" href="ilcli.html#ilcli.Command" title="ilcli.Command"><code class="xref py py-class docutils literal notranslate"><span class="pre">ilcli.Command</span></code></a> class provides is
+that it can be composed by other commands forming sub-commands in a
+similar way as tools like <code class="docutils literal notranslate"><span class="pre">apt</span></code> or Chef <code class="docutils literal notranslate"><span class="pre">knife</span></code> are
+structured. The result is a tree-like structure with two types of
+commands:</p>
+<ul class="simple">
+<li><p>Node commands: commands that define subcommands. By default, their
+arguments will be passed to their children as common arguments.</p></li>
+<li><p>Leaf commands: commands that do not define subcommands. They can
+define their own arguments and, by default, they will inherit the
+parent’s ones.</p></li>
+</ul>
+<p>Subcommands are defined as a class attribute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8; mode:python -*-</span>
+
+<span class="kn">import</span> <span class="nn">ilcli</span>
+
+
+<span class="k">class</span> <span class="nc">ssh</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ssh into a hostname</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;SSH into: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">hostname</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ping</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ping a hostname</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;Ping to: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">hostname</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">net</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    networking tools</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">subcommands</span> <span class="o">=</span> <span class="p">[</span><span class="n">ssh</span><span class="p">,</span> <span class="n">ping</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_init_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;hostname&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;target IP or hostname&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ls</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    list a file/directory</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;ls: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">rm</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    remove a file/directory</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;rm: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">fs</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    file-system tools</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">subcommands</span> <span class="o">=</span> <span class="p">[</span><span class="n">ls</span><span class="p">,</span> <span class="n">rm</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_init_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;path to file/dir&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">mytools</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="n">subcommands</span> <span class="o">=</span> <span class="p">[</span><span class="n">net</span><span class="p">,</span> <span class="n">fs</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_init_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;increase verbosity&#39;</span>
+        <span class="p">)</span>
+
+
+<span class="n">exit</span><span class="p">(</span><span class="n">mytools</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ilcli</span></code> will automatically build a tree hierarchy with the command
+that is firstly created as root and recursively creates the command
+tree. Note that each command can define its own set of arguments.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/args_subcommands.py -h
+usage: mytools [-h] {net,fs} ...
+
+positional arguments:
+  {net,fs}
+    net       networking tools
+    fs        file-system tools
+
+optional arguments:
+  -h, --help  show this help message and exit
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/args_subcommands.py net -h
+usage: mytools net [-h] {ssh,ping} ...
+
+positional arguments:
+  {ssh,ping}
+    ssh       ssh into a hostname
+    ping      ping a hostname
+
+optional arguments:
+  -h, --help  show this help message and exit
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/args_subcommands.py net ssh -h
+usage: mytools net ssh [-h] [-v] hostname
+
+positional arguments:
+  hostname       target IP or hostname
+
+optional arguments:
+  -h, --help     show this help message and exit
+  -v, --verbose  increase verbosity
+</pre></div>
+</div>
+<div class="section" id="argument-inheritance">
+<h3>Argument inheritance<a class="headerlink" href="#argument-inheritance" title="Permalink to this headline">¶</a></h3>
+<p>As we have seen in the previous example, it can also define arguments
+that will be passed to the children. In general, when a command
+defines arguments, then they will propagated to all leaf commands
+under that command. This is <code class="docutils literal notranslate"><span class="pre">ilcli</span></code> default behaviour although it
+might be tweaked using the following mechanisms:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">inherit_arguments</span> <span class="pre">=</span> <span class="pre">False</span></code>: if it is defined as a class
+attribute in the command, no arguments will be passed to this
+command.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8; mode:python -*-</span>
+
+<span class="kn">import</span> <span class="nn">ilcli</span>
+
+
+<span class="k">class</span> <span class="nc">ls</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    list a file/directory</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">inherit_arguments</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_init_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;--version&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;show version&#39;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_validate_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;validate arguments at &quot;ls&quot;&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running ls&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">rm</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    rm a file/directory</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_validate_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;validate arguments at &quot;rm&quot;&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running rm&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">fs</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="n">subcommands</span> <span class="o">=</span> <span class="p">[</span><span class="n">ls</span><span class="p">,</span> <span class="n">rm</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_init_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;increase verbosity&#39;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_validate_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;validate arguments at &quot;fs&quot;&#39;</span><span class="p">)</span>
+
+
+<span class="n">exit</span><span class="p">(</span><span class="n">fs</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Thus, subcommands could define their own arguments without clashing
+with parent’s:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/not_inherit_args.py ls -h
+usage: fs ls [-h] [-v]
+
+optional arguments:
+  -h, --help     show this help message and exit
+  -v, --version  show version
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/not_inherit_args.py rm -h
+usage: fs rm [-h] [--verbose]
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --verbose, -v  increase verbosity
+</pre></div>
+</div>
+<p>This is very useful in situations when you want to have a subcommand
+within a specific command (because makes sense there or it is
+related to it) but all the previous arguments do not apply to
+it. For exmplate, you my have:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mytool members list --org myorg
+$ mytool members create --org myorg new-member
+$ mytool members request --url https://api.server.com
+</pre></div>
+</div>
+<p>In this case, <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">create</span></code> share the argument <code class="docutils literal notranslate"><span class="pre">--org</span></code>
+that comes from <code class="docutils literal notranslate"><span class="pre">members</span></code>. However, <code class="docutils literal notranslate"><span class="pre">request</span></code> a new member
+requires just the URL (from where you probably get the <code class="docutils literal notranslate"><span class="pre">org</span></code>
+parameter) and still makes sense having <code class="docutils literal notranslate"><span class="pre">request</span></code> under
+<code class="docutils literal notranslate"><span class="pre">members</span></code> because it is related to it.</p>
+<p>An important aspect when you use this feature is that the parents’
+validation code is not executed at all. Using this flag you will
+need to implement a new validation argument functions, if
+needed. See the following execution examples:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/not_inherit_args.py rm -v
+validate arguments at &quot;fs&quot;
+validate arguments at &quot;rm&quot;
+Running rm
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/not_inherit_args.py ls -v
+validate arguments at &quot;ls&quot;
+Running ls
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_init_arguments()</span></code>: the parent could decide what arguments pass
+to its children by implementing it in the <code class="docutils literal notranslate"><span class="pre">_init_arguments()</span></code>
+method. The parent keeps a list of subcommands at
+<code class="docutils literal notranslate"><span class="pre">self._subcommands</span></code></p></li>
+</ul>
+<p>The argument inheritance mechanisms implies a few limitations:</p>
+<ul class="simple">
+<li><p>By default, since the arguments actually reside on leaf command
+parsers, there can not be conflicted names. That is, 2 argument
+names can not be defined at different levels of the same path of the
+hierarchy. However, you can change this default behaviour and allow
+argument overriding. See <a class="reference internal" href="#argument-overriding"><span class="std std-ref">Argument overriding</span></a>.</p></li>
+<li><p>Commands that define sub-commands should not define <code class="docutils literal notranslate"><span class="pre">_run()</span></code>. By
+default, it will never be executed as only leaf commands are taking
+into account. However, since children has a reference to the parent
+command they might run parent commands as part as their run.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="removing-arguments">
+<h2>Removing arguments<a class="headerlink" href="#removing-arguments" title="Permalink to this headline">¶</a></h2>
+<p>A <a class="reference internal" href="ilcli.html#ilcli.Command" title="ilcli.Command"><code class="xref py py-class docutils literal notranslate"><span class="pre">Command</span></code></a> might inherit an argument you don’t want,
+either from a parent class or being a sub-command of another
+<a class="reference internal" href="ilcli.html#ilcli.Command" title="ilcli.Command"><code class="xref py py-class docutils literal notranslate"><span class="pre">Command</span></code></a>. These can be ignored via <code class="docutils literal notranslate"><span class="pre">ignore_arguments</span></code>,
+though if you are ignoring lots of things you may want to reevaluate
+your class/command heirarchy. Arguments are ignored by their switch
+(<code class="docutils literal notranslate"><span class="pre">-f/--foo</span></code>) or the name given for positional arguments.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ignore_arguments</span> <span class="pre">=</span> <span class="pre">[]</span></code>: list of switches/positional arguments to ignore,
+identified by their switch (both <code class="docutils literal notranslate"><span class="pre">-f</span></code> and <code class="docutils literal notranslate"><span class="pre">--foo</span></code> will work) or the name
+given to positional arguments.</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/removing_arguments.py -h
+usage: parent [-h] {firstdemocommand,seconddemocommand,thirddemocommand} ...
+
+positional arguments:
+  {firstdemocommand,seconddemocommand,thirddemocommand}
+    firstdemocommand
+    seconddemocommand
+    thirddemocommand
+
+optional arguments:
+  -h, --help            show this help message and exit
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">firstdemocommand</span></code> ignores the <code class="docutils literal notranslate"><span class="pre">-b/--bar</span></code> switch, and adds the <code class="docutils literal notranslate"><span class="pre">--foo</span></code>
+switch</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/removing_arguments.py firstdemocommand -h
+usage: parent firstdemocommand [-h] [--foo FOO] bat
+
+positional arguments:
+  bat
+
+optional arguments:
+  -h, --help  show this help message and exit
+  --foo FOO
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">seconddemocommand</span></code> inherits from <code class="docutils literal notranslate"><span class="pre">firstdemocommand</span></code> and both ignores
+<code class="docutils literal notranslate"><span class="pre">-b/--bar</span></code> switch and the <code class="docutils literal notranslate"><span class="pre">--foo</span></code> switch.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/removing_arguments.py seconddemocommand -h
+usage: parent seconddemocommand [-h] bat
+
+positional arguments:
+  bat
+
+optional arguments:
+  -h, --help  show this help message and exit
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">thirddemocommand</span></code> inherits from <code class="docutils literal notranslate"><span class="pre">firstdemocommand</span></code> and ignores the <code class="docutils literal notranslate"><span class="pre">bat</span></code>
+positional argument.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/removing_arguments.py thirddemocommand -h
+usage: parent thirddemocommand [-h] [--foo FOO] [--bar BAR]
+
+optional arguments:
+  -h, --help         show this help message and exit
+  --foo FOO
+  --bar BAR, -b BAR
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentation-support">
+<h2>Documentation support<a class="headerlink" href="#documentation-support" title="Permalink to this headline">¶</a></h2>
+<p>Although using <code class="docutils literal notranslate"><span class="pre">-h</span></code> in your commands there is plenty of information
+to know how to use your tool, sometimes is also good to provide
+extended information.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8; mode:python -*-</span>
+
+<span class="kn">import</span> <span class="nn">ilcli</span>
+
+
+<span class="k">class</span> <span class="nc">ls</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    list a file/directory</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">man_page</span> <span class="o">=</span> <span class="s1">&#39;ls&#39;</span>
+    <span class="n">man_section</span> <span class="o">=</span> <span class="mi">1</span>
+
+
+<span class="n">exit</span><span class="p">(</span><span class="n">ls</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>This automatically add an option <code class="docutils literal notranslate"><span class="pre">--doc</span></code> in the command where it
+class attributes has been defined:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/doc.py net -h
+usage: ls [-h] [--doc]
+
+optional arguments:
+  -h, --help  show this help message and exit
+  --doc       open documentation
+</pre></div>
+</div>
+<p>In this case, if <code class="docutils literal notranslate"><span class="pre">--doc</span></code> is used it will open the man page
+specified. Note that this is an action that, once is finished, nothing
+else is executed. Also note that the class attributes might be defined
+at any point of the command hierarchy, so you could have more general
+documentation in top-level commands, and more concrete one in the leaf
+commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mycmd [--doc] subcommand1 [--doc] ...
+</pre></div>
+</div>
+</div>
+<div class="section" id="argument-overriding">
+<span id="id2"></span><h2>Argument overriding<a class="headerlink" href="#argument-overriding" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ilcli</span></code> will fail if you define the same argument on a single
+inheritance path. However, <code class="docutils literal notranslate"><span class="pre">ArgumentParser</span></code> allows to resolve this
+conflicts by setting <code class="docutils literal notranslate"><span class="pre">conflict_handler=resolve</span></code>. You can set custom
+arguments to be used in all parsers created by <code class="docutils literal notranslate"><span class="pre">ilcli</span></code> internally by
+using the class property <code class="docutils literal notranslate"><span class="pre">parser_args</span></code>.</p>
+<p>Here it is an example of how to allow argument overriding:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8; mode:python -*-</span>
+
+<span class="kn">import</span> <span class="nn">ilcli</span>
+
+
+<span class="k">class</span> <span class="nc">subcommand1</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    --foo does different things</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_init_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--foo&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;new foo help&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;called with: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+
+
+<span class="k">class</span> <span class="nc">subcommand2</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    --foo does different things</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_init_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;--far&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;new far help&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;called with: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+
+
+<span class="k">class</span> <span class="nc">subcommand3</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This command replaces the parent definition of -f/--foo entirely</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_init_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;--foo&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;new foo help&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="s1">&#39;called with: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+
+
+<span class="k">class</span> <span class="nc">toplevel</span><span class="p">(</span><span class="n">ilcli</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+    <span class="n">subcommands</span> <span class="o">=</span> <span class="p">[</span><span class="n">subcommand1</span><span class="p">,</span> <span class="n">subcommand2</span><span class="p">,</span> <span class="n">subcommand3</span><span class="p">]</span>
+    <span class="n">parser_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;conflict_handler&#39;</span><span class="p">:</span> <span class="s1">&#39;resolve&#39;</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_init_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;--foo&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;old foo help&#39;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s1">&#39;-b&#39;</span><span class="p">,</span> <span class="s1">&#39;--bar&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;old bar help&#39;</span>
+        <span class="p">)</span>
+
+
+<span class="n">exit</span><span class="p">(</span><span class="n">toplevel</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">toplevel</span></code> subcommands defines <code class="docutils literal notranslate"><span class="pre">parser_args</span></code>. Now
+<code class="docutils literal notranslate"><span class="pre">ilcli</span></code> will not fail and, as <code class="docutils literal notranslate"><span class="pre">ArgumentParser</span></code> does, subcommands
+will override conflicts:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/args_conflict_subcommands.py subcommand1 -h
+usage: toplevel subcommand1 [-h] [--foo FOO] [-f F] [-b BAR]
+
+optional arguments:
+  -h, --help         show this help message and exit
+  --foo FOO, -o FOO  new foo help
+  -f F               old foo help
+  -b BAR, --bar BAR  old bar help
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/args_conflict_subcommands.py subcommand2 -h
+usage: toplevel subcommand2 [-h] [--far FAR] [--foo FOO] [-b BAR]
+
+optional arguments:
+  -h, --help         show this help message and exit
+  --far FAR, -f FAR  new far help
+  --foo FOO          old foo help
+  -b BAR, --bar BAR  old bar help
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python examples/args_conflict_subcommands.py subcommand3 -h
+usage: toplevel subcommand3 [-h] [--foo FOO] [-b BAR]
+
+optional arguments:
+  -h, --help         show this help message and exit
+  --foo FOO, -f FOO  new foo help
+  -b BAR, --bar BAR  old bar help
+</pre></div>
+</div>
+</div>
+<div class="section" id="rest-api-support">
+<h2>REST API support<a class="headerlink" href="#rest-api-support" title="Permalink to this headline">¶</a></h2>
+<p>TBD</p>
+</div>
+<div class="section" id="multi-project-cli">
+<h2>Multi-project CLI<a class="headerlink" href="#multi-project-cli" title="Permalink to this headline">¶</a></h2>
+<p>TBD</p>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Quick Start</a><ul>
+<li><a class="reference internal" href="#the-minimal-example">The minimal example</a></li>
+<li><a class="reference internal" href="#arguments-and-options">Arguments and options</a><ul>
+<li><a class="reference internal" href="#validate-arguments">Validate arguments</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#subcommands">Subcommands</a><ul>
+<li><a class="reference internal" href="#argument-inheritance">Argument inheritance</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#removing-arguments">Removing arguments</a></li>
+<li><a class="reference internal" href="#documentation-support">Documentation support</a></li>
+<li><a class="reference internal" href="#argument-overriding">Argument overriding</a></li>
+<li><a class="reference internal" href="#rest-api-support">REST API support</a></li>
+<li><a class="reference internal" href="#multi-project-cli">Multi-project CLI</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">ilcli’s documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="coding-standards.html"
+                        title="next chapter">Coding Standards</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/quick-start.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="coding-standards.html" title="Coding Standards"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="ilcli’s documentation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Auditree Framework 0.3.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Quick Start</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, IBM.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+  </body>
+</html>

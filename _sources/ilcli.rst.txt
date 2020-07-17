@@ -1,0 +1,38 @@
+ilcli package
+=============
+
+Submodules
+----------
+
+ilcli.actions module
+--------------------
+
+.. automodule:: ilcli.actions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ilcli.args module
+-----------------
+
+.. automodule:: ilcli.args
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ilcli.command module
+--------------------
+
+.. automodule:: ilcli.command
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: ilcli
+   :members:
+   :undoc-members:
+   :show-inheritance:
