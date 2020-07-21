@@ -52,7 +52,7 @@ source_suffix = ['.rst', '.md']
 master_doc = 'index'
 
 # General information about the project.
-project = 'Auditree Framework'
+project = 'ilcli'
 copyright = u'{}, IBM'.format(datetime.datetime.now().year)
 author = u'IBM Cloudant & others'
 

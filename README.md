@@ -20,12 +20,11 @@ exit(mycli().run())
 
 ## Contribute!
 
-Help us to improve the compliance-tool. See [CONTRIBUTING.md][]
+Help us to improve the compliance-tool. See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 * [Quick start][] guide: https://cloudant.github.io/ilcli
 
 [Quick start]: https://cloudant.github.io/ilcli/quick-start.html
-
 
 ## Installation
 
